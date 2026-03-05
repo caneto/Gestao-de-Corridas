@@ -1,2 +1,2 @@
-# Gest-o-de-Corridas
+# Gestao-de-Corridas
 Gestão de Corridas
