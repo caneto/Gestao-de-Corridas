@@ -8,6 +8,7 @@ import 'core/blocs/scoring/scoring_bloc.dart';
 import 'core/blocs/team/team_bloc.dart';
 import 'core/database/database_helper.dart';
 import 'core/routing/app_router.dart';
+import 'core/blocs/theme/theme_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => ThemeBloc()),
         BlocProvider(create: (context) => ScoringBloc()),
         BlocProvider(
           create: (context) =>
@@ -41,16 +43,14 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => ResultBloc(dbHelper: dbHelper)),
       ],
-      child: MaterialApp.router(
-        title: 'Gestão de Corridas F1',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.red,
-            brightness: Brightness.dark,
-          ),
-          useMaterial3: true,
-        ),
-        routerConfig: AppRouter.router,
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return MaterialApp.router(
+            title: 'Gestão de Corridas F1',
+            theme: state.themeData,
+            routerConfig: AppRouter.router,
+          );
+        },
       ),
     );
   }

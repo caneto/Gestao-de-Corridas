@@ -168,7 +168,7 @@ class _DriverFormScreenState extends State<DriverFormScreen> {
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(Icons.group),
                       ),
-                      value:
+                      initialValue:
                           _selectedTeamId != null &&
                               state.teams.any((t) => t.id == _selectedTeamId)
                           ? _selectedTeamId

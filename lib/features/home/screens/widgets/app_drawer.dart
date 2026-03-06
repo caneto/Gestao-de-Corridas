@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gestao_corridas/core/blocs/theme/theme_bloc.dart';
+
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
@@ -53,6 +56,23 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
                 const Divider(),
+                BlocBuilder<ThemeBloc, ThemeState>(
+                  builder: (context, state) {
+                    return ListTile(
+                      leading: Icon(
+                        state.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                      ),
+                      title: const Text('Seleção Fundo'),
+                      trailing: Switch(
+                        value: state.isDarkMode,
+                        onChanged: (value) {
+                          context.read<ThemeBloc>().add(ToggleTheme(value));
+                        },
+                      ),
+                    );
+                  },
+                ),
+                const Divider(),
                 ListTile(
                   leading: const Icon(Icons.settings),
                   title: const Text('Configurações & Edição'),
@@ -74,24 +94,18 @@ class AppDrawer extends StatelessWidget {
   Widget _buildHeader(BuildContext context) {
     return DrawerHeader(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
+        color: Colors.white,
         image: DecorationImage(
-          image: const NetworkImage(
-            'https://media.formula1.com/image/upload/f_auto/q_auto/v1677244985/content/dam/fom-website/2018-redesign-assets/F1%20logo.png',
-          ), // Just a placeholder style bg, or use local asset
+          image: const AssetImage('assets/f1.png'),
           fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black.withValues(alpha: 0.4),
-            BlendMode.dstATop,
-          ),
         ),
       ),
       child: const Align(
-        alignment: Alignment.bottomLeft,
+        alignment: Alignment.bottomCenter,
         child: Text(
           'Gestão de Corridas',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),

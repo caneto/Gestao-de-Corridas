@@ -245,7 +245,7 @@ class _AddResultFormState extends State<_AddResultForm> {
                       labelText: 'Piloto',
                       border: OutlineInputBorder(),
                     ),
-                    value: _selectedDriver,
+                    initialValue: _selectedDriver,
                     items: state.drivers
                         .map(
                           (d) => DropdownMenuItem(
