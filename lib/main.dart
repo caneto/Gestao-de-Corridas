@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
             title: 'Gestão de Corridas F1',
             theme: state.themeData,
             routerConfig: AppRouter.router,
